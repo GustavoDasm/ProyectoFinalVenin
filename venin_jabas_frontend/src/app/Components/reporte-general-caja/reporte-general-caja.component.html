@@ -1,0 +1,28 @@
+<h3 mat-dialog-title>Reporte General</h3>
+<div mat-dialog-content [formGroup]="filtroForm" class="space-y-4">
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Fecha inicio</mat-label>
+        <input matInput type="date" formControlName="fecha_inicio">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Fecha fin</mat-label>
+        <input matInput type="date" formControlName="fecha_fin">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Sucursal</mat-label>
+        <mat-select formControlName="idsucursal" [disabled]="this.usuario.nivel_usuario !== '1'">
+            <mat-option *ngFor="let suc of sucursales" [value]="suc.idsucursal">
+                {{ suc.nombre }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+</div>
+
+<div mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">Cancelar</button>
+    <button mat-flat-button color="primary" (click)="mostrarPDF()">Aplicar</button>
+</div>

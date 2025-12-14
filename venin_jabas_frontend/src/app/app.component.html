@@ -1,0 +1,19 @@
+
+
+
+<!-- SI EL USUARIO ESTA LOGEADO -->
+<div *ngIf='false' id="global-loader">
+  <img src="assets/images/svgs/loader.svg" class="loader-img" alt="Loader">
+</div>
+<div  class="page">
+  <div class="page-main">
+      <app-header ></app-header>
+      <app-navbar ></app-navbar>
+      <div class="jumps-prevent d-none" ></div>
+      <router-outlet> </router-outlet>
+      <app-footer ></app-footer>
+  </div>
+  
+</div>
+
+

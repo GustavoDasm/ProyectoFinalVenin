@@ -1,0 +1,77 @@
+/* Contenedor principal */
+.mat-dialog-content {
+    padding: 16px;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  
+  /* Encabezado del modal */
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    padding: 5px;
+  }
+  
+  /* Secciones del formulario */
+  .form-section {
+    margin-bottom: 24px;
+    padding: 16px;
+    border-radius: 4px;
+    background-color: white;
+  }
+  
+  .form-section h3 {
+    margin-top: 0;
+    color: #3f51b5;
+  }
+  
+  /* Filas del formulario */
+  .form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  
+  /* Campos del formulario */
+  .form-field {
+    flex: 1;
+    min-width: 250px;
+  }
+  
+  .form-field-full {
+    width: 100%;
+  }
+  
+  /* Pie del modal */
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding-top: 16px;
+    border-top: 1px solid #e0e0e0;
+  }
+  
+  /* Responsive para móviles */
+  @media (max-width: 600px) {
+    .form-row {
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .form-field {
+      width: 100%;
+      min-width: unset;
+    }
+    
+    .modal-footer {
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .modal-footer button {
+      width: 100%;
+    }
+  }

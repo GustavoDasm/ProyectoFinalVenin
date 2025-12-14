@@ -1,0 +1,215 @@
+<!--Modal adquisicion data-backdrop="static" data-keyboard="false"-->
+<button *ngIf='isShow' #btnshow data-toggle="modal" data-target="#infkardex" data-backdrop="static"
+    data-keyboard="false" class='d-none'></button>
+<style>
+    .modal {
+        background: rgba(47, 47, 47, 0.52);
+    }
+</style>
+<div [style.z-index]='zindex' *ngIf='isShow' class="modal fade" id="infkardex" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered " role="document">
+        <div class="modal-content">
+            <app-loading></app-loading>
+            <div class="modal-header border-bottom-0">
+                <h5 class="modal-title" id="exampleModalLongTitle">Kardex</h5>
+                <button #btnclose (click)='close()' type="button" class="close" aria-label="Close"
+                    data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <hr class='line w-100 m-0' style='border-radius: 0px'>
+            <div class="modal-body bg-white ">
+                <app-info></app-info>
+
+                <app-alert></app-alert>
+                <div class="container  ">
+
+                    <div class="container-fluid">
+                        <div class="row-fluid">
+                            <div class="d-flex flex-md-column align-items-center justify-content-center ">
+                                <div class="row mb-4">
+                                    <div class="col-12">
+                                        <label class="" for="">Del periodo: </label>
+                                        <input [(ngModel)]="rangofechas.fecini" class="form-control col-12 my-2"
+                                            type="date">
+                                        <label class="my-2" for="">al periodo: </label>
+                                        <input [(ngModel)]="rangofechas.fecfin" class="form-control col-12 my-2"
+                                            type="date">
+                                        <label class="my-2" for="">Elegir Articulo</label>
+                                        <ng-select
+                                            style="border: 1px solid #8781d3; min-height: 38px; min-width: 300px;"
+                                            [(ngModel)]='rangofechas.id' class='my-2' [items]="articulos"
+                                            bindLabel="nombre" bindValue='idproduct'
+                                            placeholder="Ingrese el nombre de un articulo"
+                                            [searchFn]="customSearchFn"></ng-select>
+                                        <label class="my-2" for="">Tipo de reporte</label>
+                                        <select class="form-control col-12 my-2" [(ngModel)]="tipoKardex">
+                                            <option [value]="1">Kardex Físico</option>
+                                            <!-- <option [value]="2">Kardex Valorado</option> -->
+                                            <!-- <option [value]="3">Kardex General</option> -->
+                                        </select>
+                                    </div>
+                                    <div class="col-12 my-5">
+                                        <div class="row d-flex justify-content-around">
+                                            <button (click)="print()" class="btn btn-azure">Ver PDF</button>
+                                            <!-- <button (click)="imprimirKardexGeneral()" class="btn btn-azure">General</button> -->
+                                            <button (click)="GenerarExcel()"
+                                                style="background-color: #1C693F; color: aliceblue;"
+                                                class="btn">Excel</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ROW-1 CLOSED -->
+                </div>
+
+            </div>
+            <div class="d-none">
+                <div class="ticket-base">
+                    <div class="informe mt-2" id='ticket' #pagina>
+                        <!-- <p class="empresa">{{cabecera.fac_empresa}}</p>
+                        <p class="direccion" [innerHTML]='cabecera.fac_direccion'></p> -->
+                        <!-- <p class="centrado ">RUC: {{cabecera.fac_ruc}}</p> -->
+                        <!-- <div class="linea"></div> -->
+                        <div class="row mb-2">
+                            <div class="col-8" style="line-height: 0;">
+                                <img [src]="empresa?.logo" alt="Logo Empresa" width="150px"
+                                    style="max-width: 100px; margin: 10px;">
+                                <p>{{empresa?.razonsocial}}</p>
+                                <p>{{empresa?.ruc}}</p>
+                            </div>
+                            <div class="col-3 d-flex">
+                                <p class="align-self-end pb-1 text-nowrap text-gray">Impresion: {{today | date:
+                                    'dd-MM-yyyy HH:mm'}}</p>
+                            </div>
+                        </div>
+                        <!-- <div class="d-flex flex-column align-items-end">
+                            <p class="empresa">Generado el dia {{today | date:'dd-MM-yyyy HH:mm'}}</p>
+                            <p class="empresa">Pagina 1 de ...</p>
+                        </div> -->
+                        <p class="centrado negrita subrayado">KARDEX FÍSICO</p>
+                        <div class="d-flex justify-content-center">
+                            <p class="empresa ">Del periodo {{rangofechas.fecini | date:'dd-MM-yyyy'}} al periodo
+                                {{rangofechas.fecfin | date:'dd-MM-yyyy'}}</p>
+                            <!-- <p class="empresa">Generado el dia {{today | date:'dd-MM-yyyy HH:mm'}}</p> -->
+                        </div>
+                        <hr class="mb-4 mt-1">
+                        <table id="kardex" class="table mb-1 border border-2" style="table-layout: fixed; width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th class='producto'><button
+                                            class="text-black text-uppercase negrita">Fecha</button> </th>
+                                    <th class='producto'><button class="text-black text-uppercase negrita">Doc</button>
+                                    </th>
+                                    <th class='producto'><button
+                                            class="text-black text-uppercase negrita">Serie</button> </th>
+                                    <th class='producto'><button
+                                            class="text-black text-uppercase negrita">Numero</button> </th>
+                                    <th class='producto'><button
+                                            class="text-black text-uppercase negrita">Referencia</button> </th>
+                                    <th class='producto'><button
+                                            class="text-black text-uppercase negrita">Entrada</button> </th>
+                                    <th class='producto'><button
+                                            class="text-black text-uppercase negrita">Salida</button> </th>
+                                    <th class='producto'><button
+                                            class="text-black text-uppercase negrita">Saldo</button> </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    *ngFor="let item of listakardex ">
+                                    <td class="producto">{{item.fecha}}</td>
+                                    <td class="producto">{{item.numero}}</td>
+                                    <td class="producto w-100">{{item.referencia}}</td>
+                                    <td class="precio">{{ item.tipomovimiento === 'ENTRADA' ? item.cantidad : '' }}</td>
+                                    <td class="precio">{{ item.tipomovimiento === 'SALIDA' ? item.cantidad : '' }}</td>
+                                    <td class="precio">{{item.saldoinventario}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="total">TOTAL</td>
+                                    <td class="producto"></td>
+                                    <td class="producto"></td>
+                                    <td class="sumatotal">{{ totalentradas | number:'1.2'}}</td>
+                                    <td class="sumatotal">{{ totalsalidas | number:'1.2'}}</td>
+                                    <td class="sumatotal"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <table id="kardexval" class="table mb-1 border border-2" style="table-layout: fixed; width: 100%;">
+                        <thead>
+                            <tr>
+                                <th class='producto'><button class="text-black text-uppercase negrita">Fecha</button>
+                                </th>
+                                <th class='producto'><button class="text-black text-uppercase negrita">Doc</button>
+                                </th>
+                                <th class='producto'><button class="text-black text-uppercase negrita">Serie</button>
+                                </th>
+                                <th class='producto'><button class="text-black text-uppercase negrita">Numero</button>
+                                </th>
+                                <th class='producto'><button
+                                        class="text-black text-uppercase negrita">Referencia</button> </th>
+                                <th class='producto'><button class="text-black text-uppercase negrita">Entrada</button>
+                                </th>
+                                <th class='producto'><button class="text-black text-uppercase negrita">Salida</button>
+                                </th>
+                                <th class='producto'><button class="text-black text-uppercase negrita">Saldo</button>
+                                </th>
+                                <th class='producto'><button class="text-black text-uppercase negrita">Serie</button>
+                                </th>
+                                <th class='producto'><button class="text-black text-uppercase negrita">Numero</button>
+                                </th>
+                                <th class='producto'><button
+                                        class="text-black text-uppercase negrita">Referencia</button> </th>
+                                <th class='producto'><button class="text-black text-uppercase negrita">Entrada</button>
+                                </th>
+                                <th class='producto'><button class="text-black text-uppercase negrita">Salida</button>
+                                </th>
+                                <th class='producto'><button class="text-black text-uppercase negrita">Saldo</button>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of listakardexval_format ">
+                                <td class="producto">{{item.fecha}}</td>
+                                <td class="producto text-center">{{item.documento}}</td>
+                                <td class="producto">{{item.serie}}</td>
+                                <td class="producto">{{item.numero}}</td>
+                                <td class="producto">{{item.tipo}}</td>
+
+                                <td class="producto">{{item.entcantidad | number:'1.2'}}</td>
+                                <td class="producto">{{item.entcosto | number:'1.2'}}</td>
+                                <td class="producto">{{item.entsaldo | number:'1.2'}}</td>
+
+                                <td class="producto">{{item.salcantidad | number:'1.2'}}</td>
+                                <td class="producto">{{item.salidacosto | number:'1.2'}}</td>
+                                <td class="producto">{{item.salidasaldo | number:'1.2'}}</td>
+
+                                <td class="producto">{{item.saldo | number:'1.2'}}</td>
+                                <td class="producto">{{item.costo | number:'1.2'}}</td>
+                                <td class="producto">{{item.saldovalorado | number:'1.2'}}</td>
+                            </tr>
+                            <tr>
+                                <td>TOTAL</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>{{totalentradas | number:'1.2'}}</td>
+                                <td></td>
+                                <td>{{totalentradasval | number:'1.2'}}</td>
+                                <td>{{totalsalidas | number:'1.2'}}</td>
+                                <td></td>
+                                <td>{{totalsalidasval | number:'1.2'}}</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>

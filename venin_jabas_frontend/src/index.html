@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+<head >
+    <meta charset="utf-8">
+    <title>Sistema de ventas</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="../assets/images/logo_venin_2.png">
+    <!-- Meta data -->
+    <meta charset="UTF-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
+	<link  href="../assets/css/dashboard.css" rel="stylesheet"/>
+	<link  href="../assets/css/style-modes.css" rel="stylesheet"/>
+	<link  href="../assets/plugins/horizontal-menu/dropdown-effects/fade-down.css" rel="stylesheet">
+	<link  href="../assets/plugins/horizontal-menu/horizontal-menu.css" rel="stylesheet">
+	<link  href="../assets/plugins/single-page/css/main.css" rel="stylesheet" type="text/css">
+	<link  href="../assets/plugins/charts-c3/c3-chart.css" rel="stylesheet"/>
+	<link  href="../assets/plugins/scroll-bar/jquery.mCustomScrollbar.css" rel="stylesheet"/>
+	<link  href="../assets/css/icons.css" rel="stylesheet"/>
+	<link  href="../assets/skins/skins-modes/color1.css"  id="theme" rel="stylesheet" type="text/css" media="all" />
+	<link rel="stylesheet" href="../assets/css/ngselect.theme.css">
+	<link rel="stylesheet" href="../assets/css/dbp.min.css">
+	<!-- <script src="cordova.js"></script> -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body class="default-header">
+	<app-root> </app-root>
+
+	<a href="#top" id="back-to-top"><i class="fa fa-long-arrow-up"></i></a>
+
+	<script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
+	<script src="../assets/js/vendors/bootstrap.bundle.min.js"></script>
+	<script src="../assets/js/vendors/jquery.sparkline.min.js"></script>
+	<script src="../assets/js/vendors/circle-progress.min.js"></script>
+	<script src="../assets/plugins/rating/jquery.rating-stars.js"></script>
+	<script src="../assets/plugins/input-mask/jquery.mask.min.js"></script>
+	<script src="../assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script src="../assets/js/custom.js"></script>
+
+
+	<script src="../assets/plugins/charts-c3/d3.v5.min.js"></script>
+	<script src="../assets/plugins/charts-c3/c3-chart.js"></script>
+	<script src="../assets/plugins/horizontal-menu/horizontal-menu.js"></script>
+	<script src="../assets/plugins/pscrollbar/perfect-scrollbar.js"></script>
+	<script src="../assets/plugins/pscrollbar/pscroll-1.js"></script>
+	<script src="../assets/js/stiky.js"></script>
+	<script src="../assets/plugins/sidebar/sidebar.js"></script>
+
+	
+	<script type='text/javascript'>
+		$(document).ready(function(){
+			var y=0;
+			var x = setInterval(() => {
+				if($('.login-img').hasClass('islogin')){
+					$('.horizontalMenucontainer').css('height','100%');
+				}
+			}, 100);
+			
+			
+		});
+	</script>
+</body>
+
+</html>

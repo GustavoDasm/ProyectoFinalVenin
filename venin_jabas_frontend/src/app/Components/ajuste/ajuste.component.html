@@ -1,0 +1,97 @@
+<div class=" content-area relative ml-2 mr-2">
+    <div class="page-header m-1">
+
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100">
+            <h4 class="page-title">Carga de inventario y/o ingreso de material.</h4>
+            <div class="user-info ml-auto text-white">
+                <button mat-raised-button class="btn-verde" (click)="showfrmajuste()">
+                    Nuevo Ajuste
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12 col-md-9">
+                            <div class="row mb-3">
+
+                                <div class="col-12 col-sm-6 col-md-2 mb-2">
+                                    <label for="fecini">Periodo inicial</label>
+                                    <input id="fecini" [(ngModel)]="filtro.fecini" type="date" class="form-control">
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-2 mb-2">
+                                    <label for="fecfin">al</label>
+                                    <input id="fecfin" [(ngModel)]="filtro.fecfin" type="date" class="form-control">
+                                </div>
+                                <div class="col-12 col-md-1 mb-2 align-self-end">
+                                    <button (click)="mostrarFiltro()" class="btn btn-naranja w-100">Filtrar</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <!-- Fila de botones de acción -->
+                            <!-- <div class="row justify-content-start align-items-end">
+                                <div class="col-12 col-sm-6 mb-2">
+                                    <button (click)="showfrmajuste()" class="btn btn-gray w-100">Nuevo Ajuste</button>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+
+
+                <hr class="py-1">
+                <div class="row">
+                    <div class="table-responsive w-100">
+                        <app-loading></app-loading>
+                        <app-nothing></app-nothing>
+                        <table class="table mb-1 ">
+                            <thead>
+                                <tr>
+                                    <th class=''><button class=" text-uppercase text-nowrap">ID</button></th>
+                                    <th class=''><button class=" text-uppercase text-nowrap">Referencia</button> </th>
+                                    <th class=''><button class=" text-uppercase text-nowrap">Fecha</button></th>
+                                    <th class=''
+                                        style="min-width: 112px; background: #326590; border: 1px solid #564ec1; "
+                                        aria-readonly="true">Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    *ngFor="let item of ajustes | paginate: { itemsPerPage: 15, currentPage: pagarticulo, id:'tableAjustes' }; ">
+                                    <td>{{item.idajuste}}</td>
+                                    <td class='text-truncate'>{{item.referencia}}</td>
+                                    <td class="text-nowrap">{{item.fecha | date:'dd-MM-yyyy'}}</td>
+                                    <td class='p-1' style="min-width: 112px;">
+                                        <div class="btn-group show">
+                                            <button (click)="showViewajuste(item)" type="button"
+                                                class="btn btn-icon  btn-success"><i class="fa fa-file"></i></button>
+                                            <!-- <button *ngIf="usuario.aprobador" mat-icon-button color="primary"
+                                                (click)="habilitar(item)">
+                                                <mat-icon>lock_open</mat-icon>
+                                            </button> -->
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-12">
+                        <div class="row  text-center pt-2  border position-relative">
+                            <pagination-controls id="tableAjustes" style='margin: auto;'
+                                (pageChange)="pagarticulo = $event"></pagination-controls>
+                            <label class="mt-auto mb-auto " style='top:calc(100%/2 - 21px/2)'>Total Registro :
+                                {{ajustes.length}}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ROW-1 CLOSED -->
+    <app-add-ajuste></app-add-ajuste>
+</div>

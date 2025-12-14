@@ -1,0 +1,116 @@
+<div class="container mx-auto content-area relative ml-2 mr-2">
+    <div class="page-header m-1">
+        <h4 class="page-title">Proveedores</h4>
+    </div>
+    
+    <div class="container-fluid">
+        <mat-card>
+            <mat-card-content>
+                <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="8px" class="filter-container">
+                    <!-- Filtros -->
+                    <mat-form-field appearance="outline" fxFlex="150px">
+                        <mat-label>Registros</mat-label>
+                        <mat-select [(ngModel)]="search.top" (selectionChange)="GetProveedor()">
+                            <mat-option value="10">10</mat-option>
+                            <mat-option value="20">20</mat-option>
+                            <mat-option value="50">50</mat-option>
+                            <mat-option value="100">100</mat-option>
+                            <mat-option value="1000">1000</mat-option>
+                            <mat-option value="99999">Todos</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" fxFlex="150px">
+                        <mat-label>Orden</mat-label>
+                        <mat-select [(ngModel)]="search.scale" (selectionChange)="GetProveedor()">
+                            <mat-option value="ASC">Primeros</mat-option>
+                            <mat-option value="DESC">Últimos</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" fxFlex="300px">
+                        <mat-label>Buscar proveedor</mat-label>
+                        <input matInput [(ngModel)]="busqueda" (keyup.enter)="searchProveedor()" 
+                               placeholder="Nombre o documento">
+                        <button matSuffix mat-icon-button (click)="searchProveedor()">
+                            <mat-icon>search</mat-icon>
+                        </button>
+                    </mat-form-field>
+
+                    <button mat-raised-button color="primary" (click)="ShowNewProveedor()">
+                        <mat-icon>add</mat-icon> Nuevo Proveedor
+                    </button>
+                </div>
+
+                <hr style="width: 100%; margin: 8px 0; border: none; border-top: 1px solid #ccc;">
+
+                <div class="table-container mat-elevation-z1">
+                    <table mat-table [dataSource]="dataSource" class="w-100">
+                        <!-- Tipo Documento -->
+                        <ng-container matColumnDef="tipo">
+                            <th mat-header-cell *matHeaderCellDef>Tipo Doc</th>
+                            <td mat-cell *matCellDef="let item">{{tipodoc(item.tip_iden)}}</td>
+                        </ng-container>
+                        
+                        <!-- Documento -->
+                        <ng-container matColumnDef="documento">
+                            <th mat-header-cell *matHeaderCellDef>Documento</th>
+                            <td mat-cell *matCellDef="let item">{{item.ruc}}</td>
+                        </ng-container>
+                        
+                        <!-- Nombre -->
+                        <ng-container matColumnDef="nombre">
+                            <th mat-header-cell *matHeaderCellDef>Nombre/R. Social</th>
+                            <td mat-cell *matCellDef="let item">{{item.razonsocial}}</td>
+                        </ng-container>
+                        
+                        <!-- Teléfono -->
+                        <ng-container matColumnDef="telefono">
+                            <th mat-header-cell *matHeaderCellDef>Teléfono</th>
+                            <td mat-cell *matCellDef="let item">{{item.telefono || 'S/N'}}</td>
+                        </ng-container>
+                        
+                        <!-- Correo -->
+                        <ng-container matColumnDef="correo">
+                            <th mat-header-cell *matHeaderCellDef>Correo</th>
+                            <td mat-cell *matCellDef="let item">{{item.email}}</td>
+                        </ng-container>
+                        
+                        <!-- Dirección -->
+                        <ng-container matColumnDef="direccion">
+                            <th mat-header-cell *matHeaderCellDef>Dirección</th>
+                            <td mat-cell *matCellDef="let item">{{item.direccion}}</td>
+                        </ng-container>
+                        
+                        <!-- Opciones -->
+                        <ng-container matColumnDef="opciones">
+                            <th mat-header-cell *matHeaderCellDef style="width: 120px;">Opciones</th>
+                            <td mat-cell *matCellDef="let item">
+                                <button mat-icon-button color="primary" (click)="ShowEditProveedor(item.idprovee)">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                                <button mat-icon-button color="warn" (click)="ShowDeleteProveedor(item.idprovee)">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </td>
+                        </ng-container>
+                        
+                        <tr mat-header-row *matHeaderRowDef="['tipo', 'documento', 'nombre', 'telefono', 'correo', 'direccion', 'opciones']"></tr>
+                        <tr mat-row *matRowDef="let row; columns: ['tipo', 'documento', 'nombre', 'telefono', 'correo', 'direccion', 'opciones'];"></tr>
+                    </table>
+
+                    <mat-paginator [length]="total"
+                                 [pageSize]="8"
+                                 [pageSizeOptions]="[5, 10, 20, 50]"
+                                 (page)="pgproveedor = $event.pageIndex + 1">
+                    </mat-paginator>
+
+                    <div *ngIf="proveedores.length === 0" class="text-center py-4">
+                        <mat-icon class="display-1 text-muted">info</mat-icon>
+                        <h3 class="text-muted">No se encontraron proveedores</h3>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+<h1 mat-dialog-title>
+    Dialog de Ejemplo
+</h1>
+
+<div mat-dialog-content>
+    <ng-template #loadingSpinner aria-hidden="true">
+        <div class="spinner-container">
+            <mat-progress-spinner mode="indeterminate" diameter="48">
+            </mat-progress-spinner>
+        </div>
+    </ng-template>
+
+    <form *ngIf="!loading else loadingSpinner" [formGroup]="empleadoForm">
+        <div class="info-grid">
+
+            <!-- Fila 1: 5 campos -->
+            <div class="row-1">
+                <div class="info-item">
+                    <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>Apellidos</mat-label>
+                        <input matInput formControlName="apellidos" type="text" required>
+                    </mat-form-field>
+                </div>
+<!--                 <div *ngIf="usuario.nivel_usuario === '1' " class="info-item">
+                    <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>Sucursal</mat-label>
+                        <mat-select formControlName="establecimiento" required>
+                            <mat-option *ngFor="let s of establecimientos" [value]="s.idsucursal">{{ s.nombre
+                                }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div> -->
+            </div>
+
+            <!-- Fila 2 -->
+            <div class="row-2">
+                <mat-form-field appearance="outline" floatLabel="always">
+                    <mat-label>Direccion</mat-label>
+                    <input matInput formControlName="direccion" type="text" required>
+                </mat-form-field>                             
+            </div>
+            
+            <!-- Fila 3 -->
+            <div class="row-3">
+                <mat-form-field appearance="outline" floatLabel="always">
+                    <mat-label>Distrito</mat-label>
+                    <input matInput formControlName="distrito" type="text" required>
+                </mat-form-field> 
+                <mat-form-field appearance="outline" floatLabel="always">
+                    <mat-label>Nacional</mat-label>
+                    <input matInput formControlName="nacional" type="text" required>
+                </mat-form-field> 
+            </div>
+        </div>
+    </form>
+</div>
+
+<div mat-dialog-actions align="end">
+    <!-- <button mat-button (click)="onCancel()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="empleadoForm.invalid || loading">
+        <mat-icon>save</mat-icon> {{ editMode ? 'Actualizar' : 'Guardar' }}
+    </button> -->
+</div>

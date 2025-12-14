@@ -1,0 +1,13 @@
+
+table.table td input{
+    /*white-space: nowrap;*/
+    width:100%;
+    padding: 0;
+}
+
+
+input.calculo{
+    font-size: 12px !important;
+    padding-right: 5%;
+    padding-left: 5%;
+}

@@ -1,0 +1,37 @@
+<h3 mat-dialog-title>Cuentas por cobrar a clientes</h3>
+<div mat-dialog-content [formGroup]="filtroForm" class="space-y-4">
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Fecha inicio</mat-label>
+        <input matInput type="date" formControlName="fecha_inicio">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Fecha fin</mat-label>
+        <input matInput type="date" formControlName="fecha_fin">
+    </mat-form-field>
+
+    <div class="info-item pb-3">
+        <mat-label>Cliente</mat-label>
+        <ng-select [items]="clientes" bindLabel="apellidos" bindValue="idcliente" [loading]="loadingClientes"
+            [typeToSearchText]="'Escribe para buscar...'" (search)="onSearchCliente($event.term)"
+            formControlName="idcliente">
+        </ng-select>
+    </div>
+
+    <!-- <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Sucursal</mat-label>
+        <mat-select formControlName="idsucursal" [disabled]="this.usuario.nivel_usuario !== '1'">
+            <mat-option *ngFor="let suc of sucursales" [value]="suc.idsucursal">
+                {{ suc.nombre }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field> -->
+
+</div>
+
+<div mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">Cancelar</button>
+    <button mat-flat-button color="primary" (click)="mostrarPDF()">Ver PDF</button>
+    <button mat-flat-button color="primary" (click)="GenerarExcel()">Excel</button>
+</div>

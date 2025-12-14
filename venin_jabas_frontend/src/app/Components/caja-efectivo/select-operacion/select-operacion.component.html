@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Seleccionar operación</h2>
+
+<mat-dialog-content>
+  <div class="dialog-buttons">
+    <button mat-raised-button color="primary" (click)="select('ingreso')" class="full-width">
+      Ingreso efectivo
+    </button>
+
+    <button mat-raised-button color="warn" (click)="select('salida')" class="full-width">
+      Salida Efectivo
+    </button>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+</mat-dialog-actions>

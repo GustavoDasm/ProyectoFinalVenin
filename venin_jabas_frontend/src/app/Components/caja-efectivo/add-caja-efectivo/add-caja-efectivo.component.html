@@ -1,0 +1,140 @@
+<h1 mat-dialog-title>
+    {{ (editMode ? 'Editar ' : '') + (tipoOperacion === 'ingreso' ? 'Ingreso de Efectivo' : 'Salida de Efectivo') }}
+</h1>
+
+<div mat-dialog-content>
+    <ng-template #loadingSpinner aria-hidden="true">
+        <div class="spinner-container">
+            <mat-progress-spinner mode="indeterminate" diameter="48">
+            </mat-progress-spinner>
+        </div>
+
+    </ng-template>
+    <form *ngIf="!loading else loadingSpinner" [formGroup]="caja_efectivo">
+        <div class="info-grid">
+
+            <!-- Fila 1: 5 campos -->
+            <div class="row-top">
+                <div class="info-item">
+                    <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>Fecha</mat-label>
+                        <input matInput formControlName="fecha" type="date" readonly>
+                    </mat-form-field>
+                </div>
+
+                <div class="info-item">
+                    <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>Hora</mat-label>
+                        <input matInput formControlName="hora" type="time" readonly>
+                    </mat-form-field>
+                </div>
+
+                <div *ngIf="usuario.nivel_usuario === '1' " class="info-item">
+                    <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>Sucursal</mat-label>
+                        <mat-select formControlName="establecimiento" required>
+                            <mat-option *ngFor="let s of establecimientos" [value]="s.idsucursal">{{ s.nombre
+                                }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="info-item">
+                    <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>Usuario</mat-label>
+                        <input matInput formControlName="personal_nombre" type="text" readonly>
+                    </mat-form-field>
+                </div>
+
+                <div class="info-item">
+                    <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>Estado</mat-label>
+                        <mat-select formControlName="estado" [disabled]="true" required>
+                            <mat-option value="emitido">Emitido</mat-option>
+                            <mat-option value="anulado">Anulado</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <!-- Fila 2: Tipo doc | Serie | Número | Tipo operación -->
+            <div class="row-bottom">
+                <div class="info-item">
+                    <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>Tipo de Documento</mat-label>
+                        <mat-select formControlName="tipodoc" required>
+                            <mat-option value="BOL">Boleta</mat-option>
+                            <mat-option value="FAC">Factura</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="info-item">
+                    <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>Serie</mat-label>
+                        <input matInput formControlName="serie" type="text" maxlength="4">
+                    </mat-form-field>
+                </div>
+
+                <div class="info-item">
+                    <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>Número</mat-label>
+                        <input matInput formControlName="numero" type="text" maxlength="8">
+                    </mat-form-field>
+                </div>
+
+                <div class="info-item">
+                    <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>{{ tipoOperacion === 'ingreso' ? 'Tipo de ingreso' : 'Tipo de salida' }}</mat-label>
+                        <mat-select (selectionChange)="getSubTipos($event.value)" formControlName="tipo_operacion"
+                            required>
+                            <mat-option *ngFor="let opt of (tipoOperacion === 'ingreso' ? tiposIngresos : tiposSalidas)"
+                                [value]="opt.id">
+                                {{ opt.descripcion }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div *ngIf="subTiposSalidas.length > 0" class="info-item">
+                    <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>Sub Categoria</mat-label>
+                        <mat-select formControlName="subtipo_operacion">
+                            <mat-option *ngFor="let opt of subTiposSalidas" [value]="opt.id">
+                                {{ opt.descripcion }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <!-- Fila 3: Referencia (ancha) | Importe -->
+            <div class="row-ref-importe">
+                <mat-form-field appearance="outline" floatLabel="always" class="referencia-item">
+                    <mat-label>Referencia</mat-label>
+                    <textarea matInput formControlName="referencia" rows="3" maxlength="100"></textarea>
+                    <mat-hint align="end">{{ caja_efectivo.get('referencia')?.value?.length || 0 }}/100</mat-hint>
+                </mat-form-field>
+
+                <div class="info-item importe-item">
+                    <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>Importe</mat-label>
+                        <input matInput formControlName="importe" type="number" [appLimitarDecimales]="2" maxlength="12"
+                            inputmode="decimal" required>
+                    </mat-form-field>
+                </div>
+            </div>
+
+
+        </div>
+    </form>
+</div>
+
+
+
+<div mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="caja_efectivo.invalid || loading">
+        <mat-icon>save</mat-icon> {{ editMode ? 'Actualizar' : 'Guardar' }}
+    </button>
+</div>

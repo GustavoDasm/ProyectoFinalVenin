@@ -1,0 +1,72 @@
+table.tablecredit {
+    border-collapse: collapse;
+}
+
+table.tablecredit td.empty-cell {
+    padding: 16px;
+    /* Doble padding si la celda está vacía */
+}
+
+table.tablecredit th,
+table.tablecredit td {
+    font-size: 9px !important;
+    padding: 5px;
+    text-align: left;
+}
+
+
+table.tabledetalle {
+    border-collapse: collapse;
+}
+
+table.tabledetalle td.empty-cell {
+    padding: 18px;
+    /* Doble padding si la celda está vacía */
+}
+
+table.table td.empty-cell {
+    padding: 18px;
+    /* Doble padding si la celda está vacía */
+}
+
+table.tabledetalle th,
+table.tabledetalle td {
+    white-space: nowrap;
+    width: 100%;
+    font-size: 11px !important;
+    padding: 4px;
+    /* Ajusta el padding para hacer las celdas más pequeñas */
+    /*border: 1px solid #000; /* Añade bordes a las celdas */
+    text-align: left;
+    /* Alineación del texto */
+}
+
+table.table td input {
+    /*white-space: nowrap;*/
+    width: 100%;
+    padding: 0;
+}
+
+
+.rotate-180 {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+    /* Opcional: Agrega una transición para una animación suave */
+}
+
+input.calculo {
+    font-size: 10px !important;
+    padding-right: 5%;
+    padding-left: 5%;
+}
+
+input {
+    font-size: 11px !important;
+}
+
+textarea {
+    resize: horizontal;
+    overflow-y: hidden;
+    font-size: 11px !important;
+    min-width: 200px;
+}

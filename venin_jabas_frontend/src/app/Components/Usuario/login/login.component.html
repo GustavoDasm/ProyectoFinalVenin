@@ -1,0 +1,38 @@
+
+<div class="">
+    <!-- CONTAINER OPEN -->
+
+    <div class="container-login100">
+        <div class="wrap-login100 p-6" style='max-width: 370px;'>
+            
+                <span class="login100-form-title"> Acceso Personal Autorizado </span>
+                <div class="wrap-input100 validate-input" data-validate="Se requiere usuario de acceso">
+                    <input [(ngModel)]="usuario.username" class="input100" type="text" name="email" placeholder="Usuario">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="zmdi zmdi-account" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <div class="wrap-input100 validate-input" data-validate="Se requiere Contraseña">
+                    <input [(ngModel)]="usuario.password" class="input100" type="password" name="pass" placeholder="Contraseña">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="zmdi zmdi-lock" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <div class="row">
+                    <div *ngIf="!(alerta == '')" class="col-12">
+                        <div  class="alert alert-danger" role="alert">
+                            {{alerta}}
+                         </div>
+                    </div>
+                </div>
+                <div class="container-login100-form-btn">
+                    <button (click)='LogIn()' type="button" [disabled]="!(usuario.username != '' && usuario.username != undefined) && !(usuario.password != '' && usuario.password != undefined)" class="login100-form-btn btn-primary">
+                        Iniciar Sesión
+                    </button>
+                </div>
+        </div>
+    </div>
+    <!-- CONTAINER CLOSED -->
+</div>

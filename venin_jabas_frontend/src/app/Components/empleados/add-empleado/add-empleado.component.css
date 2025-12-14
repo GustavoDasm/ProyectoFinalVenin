@@ -1,0 +1,79 @@
+.info-grid {
+  display: grid;
+  gap: 16px;
+  width: 100%;
+}
+
+/* ------------- FILAS ----------- */
+
+/* Fila 1: hasta 4 columnas */
+.row-1 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  width: 100%;
+}
+
+/* Fila 2: 4 columnas en desktop, ajustable */
+.row-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+/* Fila 3: 4 columnas (por ahora), igual que las demás */
+.row-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+/* --------- CAMPOS DE FORMULARIO --------- */
+
+/* Asegurar que los campos llenen su celda */
+.info-item mat-form-field,
+.referencia-item mat-form-field,
+.importe-item mat-form-field {
+  width: 100%;
+}
+
+/* Textarea */
+textarea {
+  resize: vertical;
+  min-height: 60px;
+  height: auto;
+}
+
+/* Spinner en centro */
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+}
+
+/* ---------- BREAKPOINTS ---------- */
+
+/* Tablets pequeñas o medianas */
+@media (max-width: 900px) {
+  .row-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .referencia-item {
+    grid-column: 1 / -1; /* Ocupa todo */
+  }
+}
+
+/* Teléfonos */
+@media (max-width: 600px) {
+  .row-1,
+  .row-2,
+  .row-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .referencia-item {
+    grid-column: auto;
+  }
+}

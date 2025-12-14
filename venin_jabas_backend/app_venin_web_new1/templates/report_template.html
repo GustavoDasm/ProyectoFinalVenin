@@ -1,0 +1,144 @@
+<!-- templates/report_template.html -->
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <style>
+       @page {
+    size: A4;
+    margin: 20mm; /* Ajusta los márgenes según lo necesites */
+}
+
+body {
+    width: 100%;
+    margin: 0; /* Elimina el margen del body */
+    padding: 0; /* Elimina el padding del body */
+}
+
+.container {
+    width: 100%;
+    max-width: 100%; /* Asegura que no se desborde */
+    overflow: hidden; /* Evita el desbordamiento */
+}
+
+header {
+    margin-bottom: 10mm; /* Espacio entre el header y la tabla */
+    /* Eliminamos el position: fixed para que ocupe su lugar en el flujo */
+}
+
+footer {
+    margin-top: 10mm; /* Espacio entre la tabla y el footer */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+table {
+    width: 100%; /* Hace que la tabla use todo el ancho disponible */
+    border-collapse: collapse; /* Colapsa los bordes de la tabla */
+    font-size: 10px; /* Ajusta el tamaño de la fuente más pequeño */
+    margin-top: 20mm; /* Asegura espacio entre el encabezado y la tabla */
+}
+
+tr {
+    line-height: 1.1; /* Reduce el espaciado entre filas */
+}
+
+th, td {
+    border: 1px solid #000; /* Añade borde a las celdas */
+    padding: 2px; /* Reduce el padding para hacer las celdas más pequeñas */
+    text-align: left; /* Alineación de texto */
+}
+
+/* Asegúrate de que el encabezado de la tabla se repita */
+@media print {
+    thead { 
+        display: table-header-group; /* Asegura que el encabezado se repita */
+    }
+    tfoot { 
+        display: table-footer-group; /* Asegura que el pie se repita */
+    }
+}
+
+
+    </style>
+</head>
+
+<body>
+    <!-- Cabecera con logotipo -->
+    <header class="print-header">
+        <div class="row">
+            <div class="col-8" style="line-height: 0;">
+                <img   alt="Logo Empresa" width="150px" style="max-width: 100px; margin: 10px;">
+                <p>{{ empresa.razonsocial }}</p>
+                <p>{{ empresa.ruc }}</p>
+            </div>
+            <div class="col-3 d-flex">
+                <p>Página <span class="current-page"></span> de <span class="total-pages"></span></p> <!-- Agregado -->
+            </div>
+        </div>
+        <p class="centrado negrita subrayado">INFORME DE VENTAS</p>
+        <div class="d-flex">
+            <p class="empresa me-auto">Del periodo {{ rangofechas.fecini }} al periodo {{ rangofechas.fecfin }}</p>
+            <p class="empresa">Generado el día {{ today|date:"d-m-Y " }}</p>
+        </div>
+    </header>
+
+    
+    <table id="content" class="table mb-1 border border-2">
+        <thead>
+            <tr>
+                <th class='producto'>Fecha</th>
+                <th class='producto text-nowrap'>Tipo doc</th>
+                <th class='producto'>Serie</th>
+                <th class='producto'>Número</th>
+                <th class='producto'>Razón social</th>
+                <th class='producto'>Estado</th>
+                <th class='producto'>Moneda</th>
+                <th class='producto'>Total</th>
+                <th class='producto'>Tarjetas</th>
+                <th class='producto'>Efectivo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in facturas %}
+            <tr>
+                <td class="producto text-center">{{ item.fecha }}</td>
+                <td class="producto text-center">{{ item.documen }}</td>
+                <td class="producto text-center">{{ item.serie }}</td>
+                <td class="producto text-center">{{ item.numero }}</td>
+                <td class="producto text-start" style="min-width: 200px;">{{ item.apellidos }}</td>
+                <td class="producto text-center">{{ item.estado }}</td>
+                <td class="producto text-center">{{ item.moneda }}</td>
+                <td class="precio text-nowrap">{{ item.total }}</td>
+                <td class="precio text-nowrap">{{ item.tarjetachq }}</td>
+                <td class="precio text-nowrap">{{ item.efectivo }}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td class="total">TOTAL</td>
+                <td class="producto"></td>
+                <td class="producto"></td>
+                <td class="producto"></td>
+                <td class="producto"></td>
+                <td class="producto"></td>
+                <td class="producto"></td>
+                <td class="sumatotal text-nowrap">{{ totalventas|floatformat:2 }}</td>
+                <td class="sumatotal text-nowrap">{{ totaltarjetas|floatformat:2 }}</td>
+                <td class="sumatotal text-nowrap">{{ totalefectivo|floatformat:2 }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <footer>
+        <!-- <p>Página <span class="current-page"></span> de X</p> -->
+    </footer>
+
+</body>
+
+
+</html>

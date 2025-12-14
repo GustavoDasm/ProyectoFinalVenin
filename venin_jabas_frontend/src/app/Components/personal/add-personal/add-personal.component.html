@@ -1,0 +1,125 @@
+<mat-dialog-content>
+    <div class="modal-header">
+        <h2 mat-dialog-title>{{ isEditMode() ? 'Editar' : 'Nuevo' }} Personal</h2>
+        <button mat-icon-button (click)="close()" class="close-button">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    
+    <div class="modal-body">
+        <form [formGroup]="personalForm">
+            <!-- Sección de Información Básica -->
+            <div class="form-section mat-elevation-z1">
+                <h3>Información Básica</h3>
+                
+                <div class="form-row">
+                    <mat-form-field appearance="outline" class="form-field">
+                        <mat-label>Nombre Completo</mat-label>
+                        <input matInput formControlName="nombre" required>
+                        <mat-error *ngIf="personalForm.get('nombre')?.hasError('required')">
+                            Nombre es requerido
+                        </mat-error>
+                    </mat-form-field>
+                    
+                    <mat-form-field appearance="outline" class="form-field">
+                        <mat-label>Documento</mat-label>
+                        <input matInput formControlName="documento" required>
+                        <mat-error *ngIf="personalForm.get('documento')?.hasError('required')">
+                            Documento es requerido
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                
+                <div class="form-row">
+                    <mat-form-field appearance="outline" class="form-field">
+                        <mat-label>Tipo de Documento</mat-label>
+                        <mat-select formControlName="tipodocumento" required>
+                            <mat-option value="1">DNI</mat-option>
+                            <mat-option value="6">RUC</mat-option>
+                            <mat-option value="7">Carnet Extranjería</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="personalForm.get('tipodocumento')?.hasError('required')">
+                            Tipo documento es requerido
+                        </mat-error>
+                    </mat-form-field>
+                    
+                    <mat-form-field appearance="outline" class="form-field">
+                        <mat-label>Fecha Ingreso</mat-label>
+                        <input matInput type="date" formControlName="fecha_ingreso">
+                        
+                    </mat-form-field>
+                </div>
+            </div>
+            
+            <!-- Sección de Contacto -->
+            <div class="form-section mat-elevation-z1">
+                <h3>Información de Contacto</h3>
+                
+                <div class="form-row">
+                    <mat-form-field appearance="outline" class="form-field">
+                        <mat-label>Dirección</mat-label>
+                        <input matInput formControlName="direccion">
+                    </mat-form-field>
+                    
+                    <mat-form-field appearance="outline" class="form-field">
+                        <mat-label>Celular</mat-label>
+                        <input matInput formControlName="celular">
+                        <mat-hint>Ejemplo: +51 987654321</mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+            
+            <!-- Sección de Información Laboral -->
+            <!-- <div class="form-section">
+                <h3>Información Laboral</h3>
+                
+                <div class="form-row">
+                    <mat-form-field appearance="outline" class="form-field">
+                        <mat-label>Cargo</mat-label>
+                        <mat-select formControlName="cargo">
+                            <mat-option *ngFor="let cargo of cargos" [value]="cargo.codigo">
+                                {{ cargo.descripcion }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    
+                    <mat-form-field appearance="outline" class="form-field">
+                        <mat-label>Sucursal</mat-label>
+                        <mat-select formControlName="idsucursal">
+                            <mat-option *ngFor="let sucursal of sucursales" [value]="sucursal.idsucursal">
+                                {{ sucursal.nombre }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                
+                <div class="form-row">
+                    <mat-form-field appearance="outline" class="form-field">
+                        <mat-label>Usuario Sistema</mat-label>
+                        <mat-select formControlName="idusuario">
+                            <mat-option *ngFor="let usuario of usuarios" [value]="usuario.id">
+                                {{ usuario.username }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    
+                    <mat-form-field appearance="outline" class="form-field">
+                        <mat-label>Estado</mat-label>
+                        <mat-select formControlName="activo">
+                            <mat-option value="1">Activo</mat-option>
+                            <mat-option value="0">Inactivo</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div> -->
+            
+        </form>
+    </div>
+    
+    <div class="modal-footer">
+        <button mat-button (click)="close()">Cancelar</button>
+        <button mat-flat-button color="primary" (click)="save()" [disabled]="!personalForm.valid">
+            Guardar
+        </button>
+    </div>
+</mat-dialog-content>

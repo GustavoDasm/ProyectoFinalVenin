@@ -1,0 +1,8 @@
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    /* Permite desplazamiento en pantallas pequeñas */
+    max-width: 100%;
+}
+

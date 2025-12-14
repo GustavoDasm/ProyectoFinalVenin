@@ -1,0 +1,29 @@
+<div *ngIf='isLogin()' class="header ">
+	<div class="container-fluid">
+		<div class="d-flex">
+			<a id="horizontal-navtoggle" class="animated-arrow hor-toggle"><span></span></a>
+			<a class="header-brand" href="/">
+				<img [src]="logo" class="header-brand-img desktop-logo text-dark" alt="">
+				<span class="text-dark h4">{{nombre}}</span>
+				<!-- <img src="../assets/images/brand/micro_logo.png" class="header-brand-img desktop-logo" alt="Solic logo">
+				<img src="../assets/images/brand/micro_logo.png" class="header-brand-img mobile-view-logo" alt="Solic logo"> -->
+			</a><!-- LOGO -->
+			<div class=" order-lg-2 ml-auto header-right-icons header-search-icon">
+				<div class="dropdown d-flex header-settings">
+					<a href="#" class="nav-link " data-toggle="dropdown">
+						<span class="text-dark" >{{usuario.username}} <i class="mdi mdi-lg mdi-account texto-azul user-icon"></i></span>
+					</a>
+					<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+						<div class="drop-heading  text-center border-bottom pb-3">
+							<h5 class="text-dark mb-1">{{usuario.username}}</h5>
+							<small class="text-muted">{{usuario.username}}</small>
+						</div>
+						<a class="dropdown-item" (click)='showConfig()' routerLinkActive="active"><i class="fa fa-gear mr-2"></i> <span>Parametros</span></a>
+						<a class="dropdown-item" (click)='salir()' routerLinkActive="active"><i class="mdi  mdi-logout-variant mr-2"></i> <span>Salir</span></a>
+					</div>
+				</div><!-- SIDE-MENU -->
+			</div>
+		</div>
+		<app-configuracion></app-configuracion>
+	</div>
+</div>

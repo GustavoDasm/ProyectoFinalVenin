@@ -1,0 +1,138 @@
+<div class="container content-area relative">
+    <div class="page-header">
+        <h4 class="page-title">Registro de Personal</h4>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+
+                <div class="card-body">
+                    <div class="mat-elevation-z2 p-3">
+
+                        <!-- FILTROS -->
+                        <div class="filters mb-3" fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="10px">
+
+                            <!-- Mostrar -->
+                            <mat-form-field class="compact-select" fxFlex="none">
+                              <mat-label>Mostrar</mat-label>
+                              <mat-select [(value)]="filtro.top" (selectionChange)="SearchPersonal()">
+                                <mat-option *ngFor="let opt of [10, 20, 50, 100, 9999]" [value]="opt">{{ opt }}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          
+                            <!-- Orden -->
+                            <mat-form-field>
+                              <mat-label>Orden</mat-label>
+                              <mat-select [(value)]="filtro.scale" (selectionChange)="SearchPersonal()">
+                                <mat-option value="ASC">Primeros</mat-option>
+                                <mat-option value="DESC">Últimos</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          
+                            <!-- Buscar por texto -->
+                            <mat-form-field fxFlex class="search-field">
+                              <mat-label>Buscar</mat-label>
+                              <input matInput [(ngModel)]="filtro.text" (keyup)="SearchByName()" placeholder="Nombre o documento">
+                              <button mat-button matSuffix mat-icon-button (click)="SearchPersonal()">
+                                <mat-icon>search</mat-icon>
+                              </button>
+                            </mat-form-field>
+                          
+                            <!-- Botón para nuevo transportista -->
+                            <button mat-flat-button color="primary" (click)="showAddPersonal()" fxFlex="none">
+                              <mat-icon class="mr-1">add_circle</mat-icon> Nuevo
+                            </button>
+                          
+                          </div>
+                      
+                        <!-- TABLA -->
+                        <div class="table-responsive-container">
+                            <div class="mat-elevation-z1">
+                              <!-- Mobile View (Cards) -->
+                              <div class="mobile-view">
+                                <mat-card *ngFor="let item of dataSource.data" class="mobile-card">
+                                  <mat-card-content>
+                                    <div class="mobile-row">
+                                      <span class="mobile-label">Nombre:</span>
+                                      <span class="mobile-value">{{item.nombre}}</span>
+                                    </div>
+                                    <div class="mobile-row">
+                                      <span class="mobile-label">Dirección:</span>
+                                      <span class="mobile-value">{{item.direccion}}</span>
+                                    </div>
+                                    <div class="mobile-row">
+                                      <span class="mobile-label">Documento:</span>
+                                      <span class="mobile-value">{{item.documento}}</span>
+                                    </div>
+                                    <div class="mobile-row">
+                                      <span class="mobile-label">Fecha Ingreso:</span>
+                                      <span class="mobile-value">{{item.fecha_ingreso}}</span>
+                                    </div>
+                                    <div class="mobile-actions">
+                                      <button mat-icon-button color="primary" (click)="showEditPersonal(item)">
+                                        <mat-icon>edit</mat-icon>
+                                      </button>
+                                    </div>
+                                  </mat-card-content>
+                                </mat-card>
+                              </div>
+                          
+                              <!-- Desktop View (Table) -->
+                              <div class="desktop-view">
+                                <table mat-table [dataSource]="dataSource" matSort class="w-100">
+                                  <!-- Nombre -->
+                                  <ng-container matColumnDef="nombre">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+                                    <td mat-cell *matCellDef="let item">{{item.nombre}}</td>
+                                  </ng-container>
+                          
+                                  <!-- Dirección -->
+                                  <ng-container matColumnDef="direccion">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Dirección</th>
+                                    <td mat-cell *matCellDef="let item">{{item.direccion}}</td>
+                                  </ng-container>
+                          
+                                  <!-- Documento -->
+                                  <ng-container matColumnDef="documento">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Documento</th>
+                                    <td mat-cell *matCellDef="let item">{{item.documento}}</td>
+                                  </ng-container>
+                          
+                                  <!-- Fecha Ingreso -->
+                                  <ng-container matColumnDef="fecha_ingreso">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Ingreso</th>
+                                    <td mat-cell *matCellDef="let item">{{item.fecha_ingreso}}</td>
+                                  </ng-container>
+                          
+                                  <!-- Opciones -->
+                                  <ng-container matColumnDef="opciones">
+                                    <th mat-header-cell *matHeaderCellDef>Opciones</th>
+                                    <td mat-cell *matCellDef="let item">
+                                      <button mat-icon-button color="primary" (click)="showEditPersonal(item)">
+                                        <mat-icon>edit</mat-icon>
+                                      </button>
+                                    </td>
+                                  </ng-container>
+                          
+                                  <!-- Filas -->
+                                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                </table>
+                              </div>
+                          
+                              <!-- Paginador (shared for both views) -->
+                              <mat-paginator [length]="dataSource.data.length"
+                                             [pageSize]="filtro.top"
+                                             [pageSizeOptions]="[10, 20, 50, 100, 1000]"
+                                             showFirstLastButtons>
+                              </mat-paginator>
+                            </div>
+                          </div>
+                      </div>
+                      
+                </div>
+            </div>
+        </div><!-- COL END -->
+    </div>
+    <!-- ROW-1 CLOSED -->
+</div>

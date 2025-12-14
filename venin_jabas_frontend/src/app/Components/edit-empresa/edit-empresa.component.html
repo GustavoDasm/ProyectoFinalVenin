@@ -1,0 +1,111 @@
+<!--ventana agregar nuevo tramo data-backdrop="static" data-keyboard="false"-->
+<button *ngIf='isShow' #btnshowempresa data-toggle="modal" data-target="#btnshowempresa" class='d-none'></button>
+<div *ngIf='isShow' class="modal fade" id="btnshowempresa" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" style="max-width:auto; overflow-y: auto;" role="document">
+        <div class="modal-content">
+            <app-loading #e_loading></app-loading>
+            <div class="modal-header border-bottom-0">
+                <h5 class="modal-title" id="exampleModalLongTitle">Editar Empresa</h5>
+                <button #btnclose (click)="close()" type="button" class="close" aria-label="Close"
+                    data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <hr class='w-100 m-0' style='border-radius: 0px'>
+            <div class="modal-body bg-white py-2 px-1">
+                <app-info #artinfo></app-info>
+                <div class="container mt-2">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="razonsocial" class="form-label">Razón Social</label>
+                            <input [(ngModel)]="empresa.razonsocial" type="text" class="form-control" id="razonsocial" name="razonsocial"
+                                placeholder="Ingrese la razón social">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="nombrecomercial" class="form-label">Nombre Comercial</label>
+                            <input [(ngModel)]="empresa.nombrecomercial" type="text" class="form-control" id="nombrecomercial" name="nombrecomercial"
+                                placeholder="Ingrese el nombre comercial">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="ruc" class="form-label">RUC</label>
+                            <input [(ngModel)]="empresa.ruc" type="text" class="form-control" id="ruc" name="ruc" placeholder="Ingrese el RUC">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="banco" class="form-label">Banco</label>
+                            <input [(ngModel)]="empresa.banco" type="text" class="form-control" id="banco" name="banco"
+                                placeholder="Ingrese el nombre del banco">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="cuenta" class="form-label">Cuenta Bancaria</label>
+                            <input [(ngModel)]="empresa.cuenta" type="text" class="form-control" id="cuenta" name="cuenta"
+                                placeholder="Ingrese el número de cuenta">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="cci" class="form-label">CCI</label>
+                            <input [(ngModel)]="empresa.cci" type="text" class="form-control" id="cci" name="cci" placeholder="Ingrese el CCI">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="email" class="form-label">Correo Electrónico</label>
+                            <input [(ngModel)]="empresa.email" type="email" class="form-control" id="email" name="email"
+                                placeholder="Ingrese el correo electrónico">
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <label for="telefono" class="form-label">Teléfono</label>
+                            <input [(ngModel)]="empresa.telefono" type="text" class="form-control" id="telefono" name="telefono"
+                                placeholder="Ingrese el teléfono">
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <label for="fax" class="form-label">Fax</label>
+                            <input [(ngModel)]="empresa.fax" type="text" class="form-control" id="fax" name="fax" placeholder="Ingrese el fax">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="codfiscal" class="form-label">Código Fiscal</label>
+                            <input [(ngModel)]="empresa.codigofis" type="text" class="form-control" id="codfiscal" name="codfiscal"
+                                placeholder="Ingrese el código fiscal">
+                        </div>
+                        <div class="col-md-9 mb-3">
+                            <label for="codigoubigeo" class="form-label col-12">Código Ubigeo</label>
+                            <div class="d-flex">
+                                <input [(ngModel)]="empresa.codigoubigeo" type="text" class="form-control" id="codigoubigeo" name="codigoubigeo"
+                                    placeholder="Ingrese el código ubigeo">
+                                <ng-select [(ngModel)]="empresa.codigoubigeo" class="col-6" [items]="ubigeos" bindLabel="nombreCompleto"
+                                    bindValue="id_ubi"></ng-select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 mb-3">
+                            <label for="dtr_bcnac" class="form-label">Banco detraccion</label>
+                            <input [(ngModel)]="empresa.dtr_bconac" type="text" class="form-control" id="dtr_bcnac" name="dtr_bcnac">
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label for="refran" class="form-label">Refrán</label>
+                            <input [(ngModel)]="empresa.refran" type="text" class="form-control" id="refran" name="refran"
+                                placeholder="Ingrese un refrán">
+                        </div>
+                        <div class="col-md-3 mb-3 mt-2">
+                            <div class="form-group">
+                                <input #fileInput type="file" class="form-control" (change)="onFileSelected($event)"
+                                    id="logo" style="display:none;" />
+                                <button type="button" class="btn btn-secondary ml-3"
+                                    (click)="onSelectFile()">Seleccionar logo</button>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3 mt-2 p-2 border border-primary rounded rounded-sm"
+                            style="max-width: 200px;">
+                            <img *ngIf="empresa.logo" [src]="empresa.logo" alt="Logo" class="img-fluid" />
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer d-flex" style='background: #f2f8f9;'>
+
+                <button (click)="Guardarempresa()" class="btn btn-primary">
+                    Guardar
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>

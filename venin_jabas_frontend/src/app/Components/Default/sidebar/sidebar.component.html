@@ -1,0 +1,83 @@
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item nav-profile">
+            <div class="nav-link">
+              <div class="user-wrapper">
+                <div class="profile-image">
+                  <img src="../../../../assets/images/user.png" alt="profile image">
+                </div>
+                <div class="text-wrapper">
+                  <p class="profile-name">{{usuario.apodo}}</p>
+                  <div>
+                    <small class="designation text-muted">{{usuario.perfil.nombre}}</small>
+                    <span class="status-indicator online"></span>
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-success btn-block">{{buttontop}}
+                <i class="mdi mdi-plus"></i>
+              </button>
+            </div>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="">
+              <i class="menu-icon mdi mdi-television m-2"></i>
+              <span class="menu-title">Inicio</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href='#ui-programacion' aria-expanded="false" aria-controls="ui-programacion">
+              <i class="menu-icon mdi mdi-content-copy m-2"></i>
+              <span class="menu-title">Programación viajes</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-programacion">
+              <ul class="nav flex-column sub-menu pl-5">
+                <li class="nav-item">
+                  <a class="nav-link" [routerLink]="['/programacion/create/']" routerLinkActive="active"><i class="fa fa-plus-circle mr-2 mb-0 mt-0" style="font-size: 18px"></i> Crear programación</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" [routerLink]="['/programacion/view/']" routerLinkActive="active"><i class="fa fa-eye mr-2 mb-0 mt-0" style="font-size: 18px"></i> Ver programaciones</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href='#ui-mantenimiento'   aria-expanded="false" aria-controls="ui-mantenimiento">
+              <i class="menu-icon mdi mdi-folder-multiple-outline m-2"></i>
+              <span class="menu-title">Archivos Generales</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse " id="ui-mantenimiento">
+              <ul class="nav flex-column sub-menu pl-5">
+                  <li class="nav-item">
+                      <a class="nav-link" [routerLink]="['/requerimiento/index/']" routerLinkActive="active"><i class="fa fa-sketch"></i>Requerimientos</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" [routerLink]="['/personal/index/']" routerLinkActive="active"><i class="fa fa-user-circle"></i>Conductores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/vehiculo/index/']" routerLinkActive="active"><i class="mdi mdi-truck"></i>Vehiculos</a>
+                      </li>
+                <li class="nav-item">
+                  <a class="nav-link" [routerLink]="['/terminal/index/']" routerLinkActive="active"><i class="mdi mdi-castle"></i>Terminales</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" [routerLink]="['/operacion/index/']" routerLinkActive="active">Operaciones</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" [routerLink]="['/operacioncliente/index/']" routerLinkActive="active"><i class="fa fa-chain"></i>Cliente/Operacion</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)='logout()'>
+              <i class="menu-icon mdi mdi-backup-restore m-2"></i>
+              <span class="menu-title">Cerrar Session</span>
+            </a>
+          </li>
+
+
+        </ul>
+      </nav>

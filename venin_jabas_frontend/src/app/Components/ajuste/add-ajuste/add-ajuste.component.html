@@ -1,0 +1,99 @@
+<!--ventana agregar nuevo tramo data-backdrop="static" data-keyboard="false"-->
+<style>
+    .modal {
+        background: rgba(47, 47, 47, 0.52);
+    }
+
+    .sms-content {
+        height: calc(100% - 68px) !important;
+    }
+</style>
+<button *ngIf='isShow' #btnshowFactura data-toggle="modal" data-target="#frmfactura" class='d-none'></button>
+<div *ngIf='isShow' class="modal fade" id="frmfactura" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <app-loading #artloading></app-loading>
+            <div class="modal-header border-bottom-0">
+                <h5 class="modal-title" id="exampleModalLongTitle">Nuevo Comprobante Electrónico</h5>
+                <button #btnclose (click)="close()" type="button" class="close" aria-label="Close"
+                    data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <hr class='w-100 m-0' style='border-radius: 0px'>
+            <div class="modal-body bg-white p-0">
+
+                
+                <app-info #artinfo></app-info>
+                <div class="container p-2">
+                    <div class="row align-items-end mb-3">
+                        <div class="col-sm-3 mb-1 mb-sm-0">
+                            <label class="">Fecha</label>
+                            <input [(ngModel)]='ajuste.fecha' class="form-control"
+                                type="date">
+                        </div>
+                         <div class="col-sm-4 mb-1 mb-sm-0">
+                            <label class="">Referencia</label>
+                            <input [(ngModel)]='ajuste.referencia' class="form-control" type="text">
+                        </div>
+                        
+                        <div class="col-6 col-sm-2 mb-1 mb-sm-0">
+                            <button (click)="ShowNewDetcompra()" class="btn btn-gray">Adicionar fila</button>
+                        </div>
+                        
+                        
+                    </div>
+                    <div class="row col-sm-10 align-items-end">
+                       
+                    </div>
+                    <hr class="my-4">
+                    <!-- inicio tabla -->
+                    <div class="row-fluid mt-5">
+                        <div class="table-responsive">
+                            <div class="table-responsive" style="height: 200px;">
+                                <table class="table table-bordered w-100">
+                                    <thead>
+                                        <tr>
+                                            <th class=' '><button class=" text-uppercase"></button>
+                                            </th>
+                                            <th width="200px" class=' text-gray'><button
+                                                    class=" text-uppercase">ARTICULO</button> </th>
+                                            <th class=' text-gray'><button
+                                                    class=" text-uppercase">CANTIDAD</button> </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of detajustes; let i = index ">
+                                            <td><button (click)="DeleteDetCompra(i)"
+                                                    class="btn btn-sm btn-danger w-auto"><i
+                                                        class="fa fa-trash"></i></button></td>
+                                            
+                                            
+                                            <td style="min-width: 300px;"><textarea [(ngModel)]="item.articulo.nombre"
+                                                    type="text" readonly></textarea>
+                                            </td>
+                                            <td><input [(ngModel)]="item.cantidad"
+                                                    (ngModelChange)="UpdateDetCompra(i, 'cantidad', $event)" [appLimitarDecimales]="3"
+                                                    type="text">
+                                            </td>
+                                            
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                
+                </div>
+                <app-alert></app-alert>
+
+            </div>
+            <div class="modal-footer d-flex" style='background: #f2f8f9;'>
+                <a (click)="isedit?Actualizar():Guardar()" class="btn btn-primary mr-2 text-white" disabled=false>
+                    {{isedit? 'Enviar':'Guardar'}}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<app-compras-detcompra></app-compras-detcompra>

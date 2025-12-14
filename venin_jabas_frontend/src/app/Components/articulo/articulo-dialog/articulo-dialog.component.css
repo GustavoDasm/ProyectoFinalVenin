@@ -1,0 +1,24 @@
+.modal {
+    z-index: 2000 !important; /* Asegura que el modal de Bootstrap esté encima */
+  }
+  
+  .modal-backdrop {
+    z-index: 999 !important; /* Fondo del modal */
+  }
+
+  .modal-dialog {
+    width: 100%;
+    max-width: 100%;
+    overflow-y: auto;
+    margin: auto;
+}
+
+.cantidad-input{
+    max-width: 100px;
+}
+
+@media (min-width: 1200px) {
+    .modal-dialog {
+        max-width: 1200px;
+    }
+}

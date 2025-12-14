@@ -1,0 +1,76 @@
+.btn-danger-light > i {
+    color: red!important;
+}
+.btn-danger-light:hover i{
+    color: white!important;
+}
+.btn-primary-light > i {
+    color: #564ec1!important;
+}
+.btn-primary-light:hover i{
+    color: white!important;
+}
+.btn-secondary-light > i {
+    color: #04cad0!important;
+}
+.btn-secondary-light:hover i{
+    color: white!important;
+}
+.btn-success-light > i {
+    color: #149c38!important;
+}
+.btn-success-light:hover i{
+    color: white!important;
+}
+
+
+.btn-info-light > i { color: #26c2f7!important;}
+.btn-info-light:hover i{ color: white!important;}
+.btn-info-light:disabled{
+    background: #ecf6fe!important;
+    border: 1px solid #6ed5f785!important;
+    color: #6ed5f7ab!important;
+    cursor: not-allowed;
+}
+.btn-info-light:disabled > i{ color: #8ed8f1!important;}
+.btn-info-light:disabled:hover > i{ color: #8ed8f1!important;}
+
+
+
+.btn-warning-light > i {
+    color: #e0a01b!important;
+}
+.btn-warning-light:hover i{
+    color: white!important;
+}
+
+.border-default{
+    border: 1px solid!important;
+}
+a:not([href]):not([tabindex]) {
+    cursor: pointer!important;
+}
+
+.swal2-container{
+    z-index: 654654654645!important;
+}
+
+
+.mw-300{
+    min-width: 300px!important;
+  }
+  .mw-100{
+    min-width: 100px!important;
+  }
+  .mw-200{
+    min-width: 200px!important;
+  }
+
+  .label-resumen{
+    font-size: 23px;
+    color: black;
+  }
+
+  .label-resumen span{
+    color: blue;
+  }

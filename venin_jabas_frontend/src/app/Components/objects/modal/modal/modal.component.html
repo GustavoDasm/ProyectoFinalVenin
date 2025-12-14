@@ -1,0 +1,26 @@
+<!--Modal eliminar vehiculo data-backdrop="static" data-keyboard="false"-->
+<button *ngIf='isShowDelete' #btnshow data-toggle="modal" data-target="#mddel" ></button>
+<style>.modal{background: rgba(47, 47, 47, 0.52);}</style>
+<div *ngIf='isShowDelete' class="modal fade" id="mddel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header border-bottom-0">
+          <h5 class="modal-title" id="exampleModalLongTitle">{{title}} </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <hr class='line w-100 m-0' style='border-radius: 0px'>
+        <div class="modal-body bg-white text-center">
+            <h4 class='text-{{style}}'>{{message}}</h4>
+        </div>
+        <div *ngIf='isButton' class="modal-footer">
+          <button #btnhide (click)='hide()' type="button" class="btn btn-danger mr-auto" data-dismiss="modal"><i class="fa fa-ban"></i> No, Cancelar</button>
+          <button (click)='process()'  type="button" class="btn btn-success ml-auto"><i class="fa fa-check-circle"></i> Si, continuar</button>
+        </div>
+        <div *ngIf='!isButton' class="modal-footer">
+            <button #btnhide (click)='hide()' type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-check-circle"></i> Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>

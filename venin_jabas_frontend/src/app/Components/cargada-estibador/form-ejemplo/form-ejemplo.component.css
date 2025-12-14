@@ -1,0 +1,83 @@
+/* Contenedor general */
+.info-grid {
+  display: grid;
+  gap: 16px;
+}
+
+/* Fila 1: exactamente 5 columnas en desktop */
+.row-top {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(160px, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+/* Fila 2: Tipo | Referencia (2x) | Importe */
+.row-bottom {
+  display: grid;
+  grid-template-columns: 1fr minmax(80px, 120px) minmax(80px, 120px) 1fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+/* Fila 3: Referencia (2fr) | Importe (1fr) */
+.row-ref-importe {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+/* Asegurar que los campos llenen su celda */
+.info-item mat-form-field,
+.referencia-item {
+  width: 100%;
+}
+
+/* Referencia más ancha (ya ocupa la columna central 2fr) */
+textarea {
+  resize: vertical;
+  min-height: 20px;
+  height: 25px;
+}
+
+/* Hacer el importe compacto visualmente sin romper la grilla */
+.importe-item mat-form-field {
+  width: 100%;
+}
+
+/* Breakpoints responsivos */
+@media (max-width: 1024px) {
+  /* La fila 1 se vuelve fluida pero mantiene 2–5 columnas según espacio */
+  .row-top {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  /* Fila 2 a dos columnas: Tipo | Importe; Referencia ocupa toda la fila debajo */
+  .row-bottom {
+    grid-template-columns: 1fr 1fr;
+  }
+  .referencia-item {
+    grid-column: 1 / -1; /* ocupa ambas columnas */
+  }
+}
+
+@media (max-width: 480px) {
+  /* En móviles, todo en una sola columna */
+  .row-top,
+  .row-bottom {
+    grid-template-columns: 1fr;
+  }
+  .referencia-item {
+    grid-column: auto;
+  }
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px; /* o lo que necesites */
+}

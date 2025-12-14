@@ -1,0 +1,65 @@
+<h1 mat-dialog-title>
+    Nuevo Cliente
+</h1>
+
+<div mat-dialog-content>
+    <ng-template #loadingSpinner aria-hidden="true">
+        <div class="spinner-container">
+            <mat-progress-spinner mode="indeterminate" diameter="48">
+            </mat-progress-spinner>
+        </div>
+    </ng-template>
+
+    <form [formGroup]="addClienteForm">
+        <div class="info-grid">
+            <!-- Fila 1:  -->
+            <div class="row-1">
+                <div class="info-item">
+                <mat-form-field appearance="outline" floatLabel="always">
+                    <mat-label>Apellidos</mat-label>
+                    <input matInput formControlName="apellidos" type="text" required>
+                </mat-form-field> 
+                </div>  
+            </div>
+
+            <!-- Fila 2 -->
+            <div class="row-2">      
+                <div class="info-item">
+                <mat-form-field appearance="outline" floatLabel="always">
+                    <mat-label>Celular</mat-label>
+                    <input matInput formControlName="celular" type="" required>
+                </mat-form-field> 
+                </div>        
+                <div class="info-item mt-1">
+                <mat-form-field appearance="outline" floatLabel="always">
+                    <mat-label>Tipo de Documento</mat-label>
+                    <mat-select formControlName="tipodoc" required>
+                    <mat-option *ngFor="let tipo of tiposDocumento" [value]="tipo.codigo">
+                    {{ tipo.nombre }}
+                    </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                </div>                                  
+            </div>
+            
+            <!-- Fila 3 -->
+            <div class="row-3">
+                <div class="info-item">
+                <mat-form-field appearance="outline" floatLabel="always">
+                    <mat-label>Numero</mat-label>
+                    <input matInput formControlName="numero" type="text" required>
+                </mat-form-field> 
+                </div>                        
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+<div mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="addClienteForm.invalid || loadingClientes">
+        <mat-icon>save</mat-icon> {{ dataForm && dataForm.id ? 'Actualizar' : 'Guardar' }}
+    </button>
+</div>

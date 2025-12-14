@@ -1,0 +1,221 @@
+<h1 mat-dialog-title>
+    Guia Salida
+</h1>
+
+<div mat-dialog-content>
+    <ng-template #loadingSpinner aria-hidden="true">
+        <div class="spinner-container">
+            <mat-progress-spinner mode="indeterminate" diameter="48">
+            </mat-progress-spinner>
+        </div>
+    </ng-template>
+
+    <form *ngIf="!loading else loadingSpinner" [formGroup]="guiaSalidaForm">
+        <div class="info-grid">
+
+            <!-- Fila 1: 5 campos -->
+            <div class="row-1">
+                <div class="info-item mt-1">
+                    <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>Fecha</mat-label>
+                        <input matInput formControlName="fecha_guia" type="date">
+                    </mat-form-field>
+                </div>
+
+                <div class="info-item mt-1">
+                    <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>Hora</mat-label>
+                        <input matInput formControlName="hora" type="time">
+                    </mat-form-field>
+                </div>
+
+                <div class="info-item">
+                    <mat-label>Cliente</mat-label>
+                    <ng-select [items]="clientes" bindLabel="apellidoscompleto" bindValue="idcliente"
+                        [loading]="loadingClientes" [typeToSearchText]="'Escribe para buscar...'"
+                        (search)="onSearchCliente($event.term)" formControlName="cliente">
+                    </ng-select>
+                </div>
+
+                <div class="info-item mt-1">
+                    <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>Establecimiento</mat-label>
+                        <mat-select formControlName="sucursal" required>
+                            <mat-option *ngFor="let s of sucursales" [value]="s.idsucursal">
+                                {{ s.nombre }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                
+              </div>
+
+            <!-- Fila 2 -->
+            <div class="row-2">
+                <div class="info-item">
+                    <mat-label>Transportista</mat-label>
+                    <ng-select text-uppercase [items]="transportistas" bindLabel="apellidoscompleto" bindValue="idtrans"
+                        [loading]="loadingTransportistas" [typeToSearchText]="'Escribe para buscar...'"
+                        (search)="onSearchTransportista($event.term)" formControlName="transportista">
+                    </ng-select>
+                </div>
+                
+                <div class="info-item mt-1">
+                    <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>Referencia</mat-label>
+                        <input matInput formControlName="referencia_guia" type="text" required>
+                    </mat-form-field>
+                </div>
+
+                <div class="info-item mt-1">
+                    <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>Total</mat-label>
+                        <input matInput [value]="calcularTotalVentas()" type="text" readonly>
+                    </mat-form-field>
+                </div>
+
+                <div class="info-item mt-1">
+                    <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>Total Pagado</mat-label>
+                        <input matInput [value]="calcularTotalPagos()" type="text" readonly>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <!-- Fila 3 -->
+            <div class="row-3">
+                <div class="info-item">
+                    <div fxLayout="row" fxLayoutAlign="space-between center" class="filter-container">
+                        <!-- Título -->
+                        <div>
+                            <h6 class="page-title">Venta</h6>
+                        </div>
+                        <!-- Botón -->
+                        <div>
+                            <button mat-raised-button color="primary" (click)="addVenta()">
+                                Nueva Venta
+                            </button>
+                        </div>
+                    </div>
+                    <hr style="width: 100%; margin: 8px 0; border: none; border-top: 1px  #ccc;">
+                    <div class="table-container mat-elevation-z1">
+                        <table mat-table [dataSource]="dataSourceVentas" matSort class="w-100">
+                            <!-- Producto -->
+                            <ng-container matColumnDef="producto">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Producto</th>
+                                <td mat-cell *matCellDef="let element" class="text-uppercase col-acciones">{{
+                                    element.nombre }}</td>
+                            </ng-container>
+
+                            <!-- Cantidad -->
+                            <ng-container matColumnDef="cantidad">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad</th>
+                                <td mat-cell *matCellDef="let element">{{ element.cantidad }}</td>
+                            </ng-container>
+
+                            <!-- Precio -->
+                            <ng-container matColumnDef="precio">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Precio</th>
+                                <td mat-cell *matCellDef="let element">{{ element.precio | number:'1.2-2' }}</td>
+                            </ng-container>
+
+                            <!-- Total -->
+                            <ng-container matColumnDef="total">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Total</th>
+                                <td mat-cell *matCellDef="let element">{{ element.total | number:'1.2-2' }}</td>
+                            </ng-container>
+
+                            <!-- Acciones -->
+                            <ng-container matColumnDef="acciones">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
+                                <td mat-cell *matCellDef="let element">
+                                    <button mat-icon-button color="primary" (click)="editarOperacionVentas(element)">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <button mat-icon-button color="warn" aria-label="Anular" matTooltip="Anular"
+                                        (click)="anularOperacionVentas(element)">
+                                        <mat-icon>cancel</mat-icon>
+                                    </button>
+                                </td>
+                            </ng-container>
+                            <!-- Header y Filas -->
+                            <tr mat-header-row *matHeaderRowDef="ventaColumns"></tr>
+                            <tr mat-row *matRowDef="let row; let i = index; columns: ventaColumns;"></tr>
+                        </table>
+                        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div fxLayout="row" fxLayoutAlign="space-between center" class="filter-container">
+                        <!-- Título -->
+                        <div>
+                            <h6 class="page-title">Pagos</h6>
+                        </div>
+                        <!-- Botón -->
+                        <div>
+                            <button mat-raised-button color="primary" (click)="addPago()">
+                                Nuevo Pago
+                            </button>
+                        </div>
+                    </div>
+                    <hr style="width: 100%; margin: 8px 0; border: none; border-top: 1px  #ccc;">
+                    <div class="table-container mat-elevation-z1">
+                        <table mat-table [dataSource]="dataSourcePagos" matSort class="w-100">
+                            <!-- Fecha -->
+                            <ng-container matColumnDef="fechaPago">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
+                                <td mat-cell *matCellDef="let element">{{ element.fechaPago | date:'dd/MM/yyyy' }}</td>
+                            </ng-container>
+
+                            <!-- Referencias -->
+                            <ng-container matColumnDef="referencias">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Referencia</th>
+                                <td mat-cell *matCellDef="let element" class="text-uppercase col-acciones">{{
+                                    element.referencias }}</td>
+                            </ng-container>
+
+                             <ng-container matColumnDef="tipo_pago">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo Pago</th>
+                                <td mat-cell *matCellDef="let element" class="text-uppercase col-acciones">{{
+                                    element.tipo_pago }}</td>
+                            </ng-container>
+
+                            <!-- Total -->
+                            <ng-container matColumnDef="importe">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Total</th>
+                                <td mat-cell *matCellDef="let element">{{ element.importe | number:'1.2-2' }}</td>
+                            </ng-container>
+
+                            <!-- Acciones -->
+                            <ng-container matColumnDef="acciones">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
+                                <td mat-cell *matCellDef="let element">
+                                    <button mat-icon-button color="primary" (click)="editarOperacionPagos(element)">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <button mat-icon-button color="warn" aria-label="Anular" matTooltip="Anular"
+                                        (click)="anularOperacionPagos(element)">
+                                        <mat-icon>cancel</mat-icon>
+                                    </button>
+                                </td>
+                            </ng-container>
+                            <!-- Header y Filas -->
+                            <tr mat-header-row *matHeaderRowDef="pagoColumns"></tr>
+                            <tr mat-row *matRowDef="let row; let i = index; columns: pagoColumns;"></tr>
+                        </table>
+                        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+<div mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="guiaSalidaForm.invalid || loading">
+        <mat-icon>save</mat-icon> {{ dataForm ? 'Actualizar' : 'Guardar' }}
+    </button>
+</div>

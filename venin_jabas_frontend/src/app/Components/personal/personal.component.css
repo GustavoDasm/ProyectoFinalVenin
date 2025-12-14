@@ -1,0 +1,79 @@
+/* Responsive table container */
+.table-responsive-container {
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  /* Mobile view (shows cards on small screens) */
+  .mobile-view {
+    display: none;
+  }
+  
+  .mobile-card {
+    margin: 8px;
+  }
+  
+  .mobile-row {
+    display: flex;
+    padding: 4px 0;
+  }
+  
+  .mobile-label {
+    font-weight: 500;
+    min-width: 120px;
+  }
+  
+  .mobile-value {
+    flex: 1;
+  }
+  
+  .mobile-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 8px;
+  }
+  
+  /* Desktop view (shows table on larger screens) */
+  .desktop-view {
+    display: block;
+  }
+  
+  /* Responsive breakpoint - adjust as needed */
+  @media (max-width: 768px) {
+    .mobile-view {
+      display: block;
+    }
+    
+    .desktop-view {
+      display: none;
+    }
+    
+    /* Optional: make paginator more compact on mobile */
+    .mat-paginator-container {
+      padding: 0 8px;
+    }
+    
+    .mat-paginator-page-size {
+      margin: 0 4px;
+    }
+  }
+  
+  /* Ensure table doesn't overflow on small desktop screens */
+  .mat-table {
+    min-width: 600px; /* Adjust based on your content */
+    width: 100%;
+  }
+  
+  /* Optional: Add some spacing and styling */
+  .mat-elevation-z1 {
+    border-radius: 4px;
+    margin: 16px;
+    overflow: hidden;
+  }
+  
+  /* Make sure icons are properly sized */
+  .mat-icon {
+    font-size: 20px;
+    height: 20px;
+    width: 20px;
+  }

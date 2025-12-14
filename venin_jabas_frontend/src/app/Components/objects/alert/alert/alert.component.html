@@ -1,0 +1,8 @@
+
+ <div *ngIf='isAlert' class="alert {{alertClass}} alert-dismissible fade show" role="alert">
+     <button *ngIf='closed' type="button" class="close" data-dismiss="alert" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+         <span class="sr-only">Cerrar</span>
+     </button>
+     <div [innerHTML]="message"></div>
+ </div>

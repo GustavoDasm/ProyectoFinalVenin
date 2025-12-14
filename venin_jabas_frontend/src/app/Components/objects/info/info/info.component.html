@@ -1,0 +1,26 @@
+<div *ngIf='isShow' class='position-absolute w-100 h-100 bg-white align-items-center d-flex' style='z-index: 100;'>
+    <div  class="text-center w-100 h-100">
+        <style>
+            .text-infos{word-wrap: break-word;}
+            .sms-content{
+                display: flex;
+                align-items: center;
+                width: 100%;
+                height: calc(100% - 59px);
+                /* max-height: 78%; */
+                overflow-x: hidden;
+                border-top: 1px solid #f1f1f1;
+                border-bottom: 1px solid #f1f1f1;
+            }
+        </style>
+        <div class="sms-content border">
+                <div #content class='{{textClass}} text-infos pl-3 pr-3 w-100' ></div>
+        </div>
+
+            
+        <div class="modal-footer d-flex p-2 border mt-1" style='background: #f2f8f9;'>
+                <button *ngIf='option.isCancel'  (click)='cancel()' class="btn btn-pill btn-danger-light border-default"><i class="fa fa-ban"></i> {{option.cancelText}}</button>
+                <button  (click)='process()' class="btn btn-pill btn-primary-light ml-auto border-default ml-auto"><i class="fa fa-check-circle"></i> {{option.successText}}</button>
+        </div>
+    </div>
+</div>

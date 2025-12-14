@@ -1,0 +1,13 @@
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    /* Permite desplazamiento en pantallas pequeñas */
+    max-width: 100%;
+}
+
+::ng-deep td.mat-cell {
+  padding: 5px 15px 5px 0px !important;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-color: #ccc; /* o el color que desees */
+}

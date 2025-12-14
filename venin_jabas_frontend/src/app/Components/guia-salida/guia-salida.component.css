@@ -1,0 +1,21 @@
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+::ng-deep td.mat-cell {
+  padding: 5px 15px 5px 0px !important;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-color: #ccc; 
+}
+
+::ng-deep td.cdk-column-fecha {
+  padding: 5px 15px 5px 15px !important;
+}
+
+::ng-deep td.cdk-column-cantidad {
+  padding: 5px 15px 5px 15px !important;
+}
+

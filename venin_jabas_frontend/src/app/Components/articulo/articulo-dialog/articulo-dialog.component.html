@@ -1,0 +1,252 @@
+<!--Modal adquisicion data-backdrop="static" data-keyboard="false"-->
+<button *ngIf='isShow' #btnshow data-toggle="modal" data-target="#mdarticulo" data-backdrop="static"
+    data-keyboard="false" class='d-none'></button>
+<style>
+    .modal {
+        background: rgba(47, 47, 47, 0.52);
+    }
+
+    .modal-backdrop {
+        z-index: 999 !important;
+        /* Fondo del modal */
+    }
+</style>
+<div *ngIf='isShow' class="modal fade" id="mdarticulo" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+                <h5 class="modal-title" id="exampleModalLongTitle"> {{pagina== 2 ? isEdit ? 'Editar':'Agregar' : ''}}
+                    {{showdelete ? 'Eliminar':''}} Articulo</h5>
+
+                <button #btnclose (click)='close()' type="button" class="close" aria-label="Close"
+                    data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <hr class='line w-100 m-0' style='border-radius: 0px'>
+            <div class="modal-body bg-white ">
+                <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
+                    <li *ngIf='false' class="nav-item"> <a class="nav-link active" id="lic-tab" data-toggle="tab"
+                            href="#lic-home" role="tab" aria-controls="home" aria-selected="true"><i
+                                class="fa fa-list"></i> Vista Principal</a></li>
+                    <li *ngIf='false' class="nav-item"> <a class="nav-link active show" id="licnew-tab"
+                            data-toggle="tab" href="#lic-new" role="tab" aria-controls="profile"
+                            aria-selected="false"><i
+                                class="fa  {{pagina== 2 ? isEdit ? 'fa-edit':'fa-plus-circle' : ''}}"></i> {{pagina== 2
+                            ? isEdit ? 'Editar':'Agregar' : ''}}</a></li>
+                </ul>
+                <!--vista general-->
+                <div *ngIf='pagina == 1 && !showdelete' class="col-12">
+                    <div class="row ">
+                        <div class="form-group w-100 mb-1 mt-1">
+                            <div class="input-group">
+                                <label class="form-control mr-1 pl-1 pr-1 search-label"
+                                    style='max-width: 100px;'>Clase</label>
+                                <select (change)='changeClase()' [(ngModel)]='search.clase'
+                                    class='form-control mr-1 pl-1 pr-1'
+                                    style='height: auto!important;max-width: 200px;'>
+                                    <option value=''>Todo</option>
+                                    <option *ngFor="let item of clases" value='{{item.idclase}}'>{{item.nombre}}
+                                    </option>
+                                </select>
+                                <input (keyup)='searchData()' (keyup.enter)="GetData()" [(ngModel)]='search.nombre'
+                                    type="text" class="form-control" placeholder="Buscar por nombre o codigo">
+                                <div class="input-group-append"> <button (click)='GetData()'
+                                        class="btn btn-success pl-2 pr-1"> <i class="fa fa-search"></i> </button> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content  position-relative p-0 " id="myTabContent">
+                    <div *ngIf='pagina == 1' class="tab-pane fade show active border-0" id="lic-home" role="tabpanel"
+                        aria-labelledby="lic-tab" style='min-height: 300px;'>
+                        <app-loading></app-loading>
+                        <div *ngIf='!showdelete' class="text-wrap">
+                            <!-- <div class="table-responsive position-relative" style='min-height: 421px;'>
+                                
+                                <table class=" mb-1">
+                                    <thead>
+                                        <tr>
+                                           
+                                            <th style="min-width: 100px;"><i class="ti-key"></i> Codigo</th>
+                                            <th width='40%'><i class="ti-tag"></i> Nombre</th>
+                                            <th width='40%'><i class="ti-tag"></i> Marca</th>
+                                            <th width='40%'><i class="ti-tag"></i> Modelo</th>
+                                            <th  style="min-width: 121px;"><i class="ti-pulse"></i> Acción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of articulos | paginate: { itemsPerPage: 8, currentPage: pagart,id:'pgcatprod' }; let i = index"  class="{{item.atributo == '1' ?  'art-sinfac':''}}">
+                                            
+                                            <td class='pt-1 pb-1 align-middle'>{{item.codigo}}</td>
+                                            <td class=' pt-1 pb-1 align-middle'>{{item.nombre}}</td>
+                                            <td class=' pt-1 pb-1 align-middle'>{{item.marca}}</td>
+                                            <td class=' pt-1 pb-1 align-middle'>{{item.modelo}}</td>
+                                            <td class='p-1' style="text-align: right;">
+                                                <div class="btn-group show">
+                                                    <button  (click)='SelectItem(item)' type="button" class="btn btn-icon  btn-radius btn-indigo"><i class=" ti-check-box text-white"></i> SELECCIONAR</button>
+                                                    
+                                                    
+                                                </div>
+                                            </td >
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div> -->
+                            <div class="table-responsive position-relative" style='min-height: 421px;'>
+                                <table class="table mb-1">
+                                    <thead>
+                                        <tr>
+                                            <th>Codigo</th>
+                                            <th>Nombre</th>
+                                            <th>Marca</th>
+                                            <th>Tipo precio</th>
+                                            <th>Unidad</th>
+                                            <th>Moneda</th>
+                                            <th>Precio</th>
+                                            <th>Stock</th>
+                                            <th class="text-nowrap">Unidad </th>
+                                            <th>Cantidad</th>
+                                            <th>Acción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of articulos | paginate: { itemsPerPage: 8, currentPage: pagart, id:'pgcatprod' }; let i = index"
+                                            class="{{item.atributo == '1' ? 'art-sinfac' : ''}}">
+                                            <td class='pt-1 pb-1 align-middle'>{{item.idproduct.codigo}}</td>
+                                            <td style="min-width: 200px;" class='pt-1 pb-1 align-middle'>
+                                                {{item.idproduct.nombre}}</td>
+                                            <td class='pt-1 pb-1 align-middle'>{{item.idproduct.marca}}</td>
+                                            <td class='pt-1 pb-1 align-middle'>{{getNombreZona(item.idzona)}}</td>
+                                            <td class='pt-1 pb-1 align-middle'>{{item.unidad.unidad}}</td>
+                                            <td class='pt-1 pb-1 align-middle'>{{item.moneda.codigo}}</td>
+                                            <td class='pt-1 pb-1 align-middle'>{{item.preventa | number:'1.2-2'}}</td>
+                                            <td class='pt-1 pb-1 align-middle'>{{ idsucursal === 1 ? item.idproduct.saldo00001 :
+                                                idsucursal === 2 ? item.idproduct.saldo00002 :
+                                                idsucursal === 3 ? item.idproduct.saldo00003 :
+                                                idsucursal === 4 ? item.idproduct.saldo00004 :
+                                                idsucursal === 5 ? item.idproduct.saldo00005 :
+                                                idsucursal === 6 ? item.idproduct.saldo00006 :
+                                                item.idproduct.saldo00007 }}</td>
+                                            <td class='pt-1 pb-1 align-middle'>{{item.idproduct.unidad.unidad}}</td>
+                                            <td class='pt-1 pb-1 align-middle'><input class="cantidad-input"
+                                                    type="number" [(ngModel)]='item.cantidad'
+                                                    (keydown)="preventDecimal($event)" min="0"></td>
+                                            <td class='p-1' style="text-align: right;">
+                                                <div class="btn-group show">
+                                                    <button (click)='seleccionarArticulo(item)' type="button"
+                                                        class="btn btn-icon btn-radius" [disabled]="item.isSelected"
+                                                        [ngClass]="item.isSelected?'btn-success':'btn-indigo'">
+                                                        <i class="ti-check-box text-white"></i> SELECCIONAR
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-12">
+                                <div class="row text-center pt-2 border position-relative align-items-center">
+                                    <div class="col-auto col-sm-2">
+                                        <select (change)="GetData()" [(ngModel)]="search.top" class="form-control">
+                                            <option value="10">10</option>
+                                            <option value="20">20</option>
+                                            <option value="50">50</option>
+                                            <option value="100" selected>100</option>
+                                            <option value="1000">1000</option>
+                                            <option value="99999">Cargar todo</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-auto">
+                                        <select (change)="GetData()" [(ngModel)]="search.scale" class="form-control">
+                                            <option value="ASC">Primeros</option>
+                                            <option value="DESC">Últimos</option>
+                                        </select>
+                                    </div>
+                                    <div class="col text-center">
+                                        <pagination-controls (pageChange)="pagart = $event"
+                                            id="pgcatprod"></pagination-controls>
+                                    </div>
+                                    <div class="col-auto">
+                                        <label class="font-weight-bold">Total Registro: {{ total }}</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div *ngIf='!showdelete' class="modal-footer d-flex p-2 border mt-1"
+                            style='background: #f2f8f9;'>
+                            <button (click)='close()' class="btn btn-pill btn-danger-light border-default"><i
+                                    class="fa fa-times-circle text-white"></i> Cerrar </button>
+
+                        </div>
+                    </div>
+                    <!--agregar-->
+                    <!-- <div *ngIf='pagina == 2' class="tab-pane fade show active" id="lic-new" role="tabpanel" aria-labelledby="licnew-tab">
+                        <app-loading ></app-loading>
+                        <app-info ></app-info>
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body p-0" style='min-height: 200px;'>             
+                                   <div class="form-group">
+                                       <label for="">cantidad </label>
+                                       <input [(ngModel)]= 'cantidad' type="text" class="form-control" placeholder="Cantidad">
+                                   </div>
+                                    
+                                    <div class="col-12">
+                                        <hr class='mt-2 mb-3'>
+                                        <div  class="table-responsive mb-3">
+                                            <table class='table-bordered dbp-table w-100'>
+                                                <thead>
+                                                    <th>Nombre Articulo</th>
+                                                    <th>Unidad</th>
+                                                    <th>Moneda</th>
+                                                    <th>P. Venta</th>
+                                                    <th>Stock {{articulo.atributo == '1'? 'SF':''}}</th>
+                                                    <th style='width: 100px;'>Action</th>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor='let item of precios | paginate: { itemsPerPage: 8, currentPage: pagprecio }; let i = index' >
+                                                        
+                                                        <td>{{item.idproduct.nombre}}</td>
+                                                        <td>{{item.unidad.unidad}}</td>
+                                                        <td>{{item.moneda.simbolo}}</td>
+                                                        <td>{{item.preventa}}</td>
+                                                        <th class="{{this.IsStock(item) ? 'stock-true':'stock-false' }}">{{this.CalculaStock(item) | number : '1.2'}}</th>
+                                                        <td>
+                                                            <div class="btn-group w-100">
+                                                                <button (click)='SelectItemPrecio(item)' class="btn btn-indigo ml-auto mr-auto"><i class="fa fa-check-circle text-white"></i> Seleccionar</button>
+                                                            </div>
+                                                        </td>
+                                                        
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <app-alert></app-alert>
+                        <div class="modal-footer d-flex p-2 border" style='background: #f2f8f9;'>
+                            <button (click)='showTab(1)' class="btn btn-pill btn-danger-light border-default" type="button"><i class="fa fa-arrow-left"></i> Volver </button>
+                            
+                        </div>
+                    </div>
+                    <div *ngIf='pagina == 3' class="tab-pane fade show active" id="lic-new" role="tabpanel" aria-labelledby="licnew-tab">
+                        <div class="text-wrap">
+                            <div class="table-responsive">
+                                <table class="table mb-1">
+                                   
+                                </table>
+                            </div>
+                        </div>
+                        <div class="modal-footer d-flex p-2 border" style='background: #f2f8f9;'>
+                            <button (click)='showTab(1)' class="btn btn-pill btn-danger-light border-default mr-auto" type="button"><i class="fa fa-arrow-left"></i> Volver </button>
+                        </div>
+                    </div> -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

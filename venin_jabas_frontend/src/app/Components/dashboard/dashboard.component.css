@@ -1,0 +1,43 @@
+/* 1) Contenedor que debe permitir scroll horizontal */
+.table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto !important;                 /* fuerza scroll horizontal */
+  -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
+  padding: 8px 8px;
+}
+
+/* 2) Asegurar que los padres no corten el overflow (sobrescribimos reglas problemáticas) */
+.container, .content-area, .card, .card-body, .page-header {
+  overflow: visible !important;
+}
+
+/* 3) Hacemos que la tabla use su ancho natural (y obligue al scroll) */
+.gastos-table {
+  width: auto !important;
+  min-width: max-content !important;           /* tabla tan ancha como su contenido */
+  table-layout: auto !important;
+  border-collapse: separate !important;
+  box-sizing: border-box;
+}
+
+/* 4) Celdas: que no hagan wrap ni sean truncadas por ellipsis */
+.table-responsive .mat-header-cell,
+.table-responsive .mat-cell {
+  white-space: nowrap !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  padding: 8px 12px !important;
+  box-sizing: border-box;
+}
+
+/* 5) min-width por columna para evitar que queden muy angostas */
+.table-responsive .mat-column-total { min-width: 120px !important; }
+.table-responsive .mat-column-tipo_4,
+.table-responsive .mat-column-tipo_6,
+.table-responsive .mat-column-otros { min-width: 110px !important; }
+
+/* 6) Estética: scroll visible en WebKit */
+.table-responsive::-webkit-scrollbar { height: 10px; }
+.table-responsive::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 6px; }
