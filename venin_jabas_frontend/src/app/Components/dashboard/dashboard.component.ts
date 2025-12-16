@@ -3,6 +3,7 @@ import { DataService } from 'src/app/Service/data.service';
 import { Chart } from 'chart.js';
 import * as moment from 'moment';
 import { MatTableDataSource } from '@angular/material';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dashboard',
@@ -39,7 +40,9 @@ export class DashboardComponent implements OnInit {
   public DataSetByPayMethod = [];
   public DaysList = [];
   public SalesByDay = [];
-  constructor(private data: DataService) { }
+  constructor(private data: DataService,private titleService: Title,) {
+    this.titleService.setTitle("Dashboard | Sistema Venin");
+   }
   ngOnInit(): void {
     this.selectedMonth = (this.today.getMonth() + 1).toString()
     this.productSelected = '1'

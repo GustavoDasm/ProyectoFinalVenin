@@ -310,7 +310,7 @@ export class KardexComponent implements OnInit {
 
   printerKardex() {
     const doc = new jsPDF();
-    const titulo = { text: 'KARDEX FÍSICO', x: 85, y: 20 };
+    const titulo = { text: 'KARDEX DIGITAL', x: 85, y: 20 };
 
 
     // Función para agregar encabezado en cada página

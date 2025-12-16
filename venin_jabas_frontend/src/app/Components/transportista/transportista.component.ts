@@ -27,7 +27,9 @@ export class TransportistaComponent implements OnInit {
     private auth: AuthService,
     private titleService: Title,
     public dialog: MatDialog
-  ) { }
+  ) { 
+    this.titleService.setTitle("Transportista | Sistema Venin");
+  }
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
